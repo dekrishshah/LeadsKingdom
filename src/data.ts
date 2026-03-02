@@ -1,0 +1,122 @@
+export const caseStudiesData = [
+  {
+    id: "scaletech-solutions",
+    company: "ScaleTech Solutions",
+    title: "From 0 to 50k monthly emails with zero spam issues",
+    description: "ScaleTech was launching a new outbound motion but kept hitting Google's spam filters. We deployed 100 dedicated mailboxes across 25 domains.",
+    achievements: ["100 Mailboxes Deployed", "99.2% Deliverability", "45 Meetings Booked in Month 1"],
+    image: "https://picsum.photos/seed/case1/800/600",
+    about: "ScaleTech Solutions is a fast-growing B2B SaaS company providing AI-driven analytics for enterprise sales teams. They needed a reliable way to reach decision-makers at scale.",
+    problem: "Their internal SDR team was using their primary domain to send cold emails. Within two weeks, their open rates plummeted from 45% to 12%, and critical transactional emails started landing in spam folders. They were effectively shadow-banned by major email providers.",
+    solution: "We completely decoupled their outbound infrastructure from their primary domain. We registered 25 lookalike domains, set up 100 dedicated Google Workspace mailboxes, and configured perfect SPF, DKIM, and DMARC records. We then connected everything to Smartlead and initiated a strict 14-day automated warming protocol.",
+    result: "Within 30 days, ScaleTech was safely sending 50,000 emails per month. Their open rates stabilized at 62%, and they booked 45 qualified enterprise meetings in the first month of the new infrastructure going live. Their primary domain reputation was fully restored."
+  },
+  {
+    id: "growth-engine-agency",
+    company: "Growth Engine Agency",
+    title: "Replacing a $5,000/mo Google Workspace bill",
+    description: "As a lead generation agency, Growth Engine was spending thousands on Google Workspace. We migrated their entire infrastructure to LeadsKingdom.",
+    achievements: ["$4,200 Monthly Savings", "Zero Downtime Migration", "Centralized Inbox Management"],
+    image: "https://picsum.photos/seed/case2/800/600",
+    about: "Growth Engine Agency is a premier lead generation firm that runs outbound campaigns on behalf of 40+ B2B clients.",
+    problem: "Managing infrastructure for 40 clients meant paying premium prices for Google Workspace accounts, resulting in a $5,000+ monthly bill just for email hosting. Furthermore, managing hundreds of domains across different registrars was an operational nightmare.",
+    solution: "We migrated their entire client portfolio to LeadsKingdom's infrastructure. We provided a unified dashboard for domain management, automated the DNS setup for all 40 clients, and replaced their expensive Google Workspace seats with our optimized sending mailboxes.",
+    result: "Growth Engine Agency reduced their infrastructure costs by 84%, saving over $4,200 per month. The centralized management saved their operations team 15 hours a week, allowing them to take on more clients without adding headcount."
+  },
+  {
+    id: "saasify-inc",
+    company: "SaaSify Inc.",
+    title: "Bypassing strict enterprise spam filters",
+    description: "Targeting Fortune 500 companies meant dealing with aggressive firewalls. Our custom rotating IP architecture ensured their messages got through.",
+    achievements: ["Bypassed Proofpoint & Mimecast", "2.4x Open Rate Increase", "Enterprise Deals Closed"],
+    image: "https://picsum.photos/seed/case3/800/600",
+    about: "SaaSify Inc. provides enterprise resource planning (ERP) integrations. Their target market consists exclusively of Fortune 500 CIOs and IT Directors.",
+    problem: "Enterprise companies use advanced email security gateways like Proofpoint and Mimecast. SaaSify's cold emails were being quarantined before ever reaching the prospect's inbox, resulting in an abysmal 8% open rate.",
+    solution: "We deployed a custom architecture using rotating IPs and aged domains. We implemented strict sending limits (max 25 emails per day per mailbox) and utilized plain-text only formatting to minimize spam scores. We also set up custom tracking domains to avoid blacklisted shared tracking links.",
+    result: "Their open rates skyrocketed to 35% within the first campaign. More importantly, they successfully bypassed the enterprise firewalls, leading to 12 booked meetings with Fortune 500 executives and 3 closed-won enterprise deals in Q2."
+  },
+  {
+    id: "outbound-kings",
+    company: "Outbound Kings",
+    title: "Scaling to 1,000 mailboxes in 48 hours",
+    description: "When Outbound Kings landed a massive client, they needed infrastructure fast. We spun up 1,000 fully authenticated mailboxes over the weekend.",
+    achievements: ["48-Hour Turnaround", "Automated Warming Initiated", "Seamless Smartlead Integration"],
+    image: "https://picsum.photos/seed/case4/800/600",
+    about: "Outbound Kings is a high-volume outbound marketing firm specializing in the real estate and insurance sectors.",
+    problem: "They signed their largest client to date, requiring a massive campaign launch within 14 days. They needed 1,000 new mailboxes across 250 domains, a task that would normally take their internal team weeks to procure, configure, and verify.",
+    solution: "Leveraging LeadsKingdom's automated provisioning system, we registered 250 domains, created 1,000 mailboxes, and configured all DNS records (SPF, DKIM, DMARC, MX) automatically. We then used our API integration to instantly push all 1,000 accounts into their Smartlead workspace.",
+    result: "The entire infrastructure was live and warming within 48 hours. The client's campaign launched exactly on schedule, and Outbound Kings avoided the need to hire temporary contractors for the setup."
+  },
+  {
+    id: "b2b-connect",
+    company: "B2B Connect",
+    title: "Recovering from a burned primary domain",
+    description: "B2B Connect accidentally burned their primary domain by sending cold email directly from it. We set up a robust secondary domain strategy.",
+    achievements: ["Primary Domain Protected", "15 Lookalike Domains Secured", "Reputation Restored"],
+    image: "https://picsum.photos/seed/case5/800/600",
+    about: "B2B Connect is a networking platform for manufacturing suppliers and distributors.",
+    problem: "Unaware of outbound best practices, their marketing team sent a 10,000-contact blast directly from their primary domain. The domain was immediately blacklisted, causing all internal communications and customer support emails to bounce.",
+    solution: "We immediately halted all outbound activity from the primary domain and initiated a delisting process with major blocklists. Simultaneously, we built a new outbound engine using 15 lookalike domains (e.g., tryb2bconnect.com, getb2bconnect.com) hosted on our isolated infrastructure.",
+    result: "Internal communications were restored within 72 hours. The new outbound engine allowed them to resume their marketing campaigns safely, completely insulating their primary domain from any future deliverability risks."
+  },
+  {
+    id: "apex-marketing",
+    company: "Apex Marketing",
+    title: "Achieving 80%+ open rates in a saturated market",
+    description: "Apex Marketing was struggling to stand out. By optimizing their infrastructure and warming protocols, we pushed their open rates to industry-leading levels.",
+    achievements: ["82% Average Open Rate", "Spam Rate < 0.1%", "2x Reply Rate"],
+    image: "https://picsum.photos/seed/case6/800/600",
+    about: "Apex Marketing provides SEO and content services to digital agencies, a notoriously difficult and saturated market to prospect into.",
+    problem: "Their emails were landing in the 'Promotions' tab, resulting in open rates hovering around 20%. Their messaging was good, but the infrastructure was holding them back.",
+    solution: "We audited their setup and found misaligned DKIM signatures and a shared IP with poor reputation. We migrated them to LeadsKingdom, assigned them to a high-reputation IP pool, and implemented a slow, methodical 21-day warming sequence.",
+    result: "With perfect technical alignment and pristine IPs, their emails started landing consistently in the primary inbox. Open rates surged to 82%, and their positive reply rate doubled, directly leading to a record-breaking sales quarter."
+  },
+  {
+    id: "cloudsync",
+    company: "CloudSync",
+    title: "Global outreach with localized domains",
+    description: "CloudSync needed to reach prospects in Europe, Asia, and North America. We built a localized domain strategy to maximize trust.",
+    achievements: ["Localized TLDs (.co.uk, .de, .au)", "Geo-routed Sending", "30% Higher Conversion"],
+    image: "https://picsum.photos/seed/case7/800/600",
+    about: "CloudSync is an international cloud storage provider looking to expand their enterprise footprint globally.",
+    problem: "Sending emails from a standard .com domain to European and Asian prospects was resulting in low trust and poor conversion rates. Prospects preferred dealing with local entities.",
+    solution: "We procured and configured over 50 localized Top-Level Domains (TLDs) matching their target regions (e.g., cloudsync.co.uk, cloudsync.de, cloudsync.com.au). We set up dedicated mailboxes for each region and routed sending through geographically proximate servers.",
+    result: "The localized approach significantly increased prospect trust. CloudSync saw a 30% higher conversion rate on emails sent from localized domains compared to their previous global .com campaigns."
+  },
+  {
+    id: "leadgenius",
+    company: "LeadGenius",
+    title: "Automating infrastructure for 100+ sales reps",
+    description: "Managing mailboxes for a massive sales team was a full-time job. We automated the entire provisioning and assignment process.",
+    achievements: ["Zero Manual Provisioning", "Automated Seat Assignment", "100% Compliance"],
+    image: "https://picsum.photos/seed/case8/800/600",
+    about: "LeadGenius employs over 100 sales representatives, each requiring multiple dedicated mailboxes for their outbound efforts.",
+    problem: "The IT department was overwhelmed with requests to create, configure, and troubleshoot mailboxes for new hires and existing reps. It was a massive bottleneck.",
+    solution: "We integrated LeadsKingdom's API directly into LeadGenius's HR and CRM systems. Now, when a new rep is onboarded, the system automatically provisions 5 dedicated mailboxes, configures the DNS, warms them up, and assigns them to the rep in their sending platform.",
+    result: "The IT department was completely freed from mailbox management. Provisioning time went from 3 days to 3 minutes, ensuring new sales reps could start prospecting immediately upon completing training."
+  },
+  {
+    id: "hypergrowth-partners",
+    company: "HyperGrowth Partners",
+    title: "Reviving a dead outbound channel",
+    description: "After a year of poor results, HyperGrowth had given up on cold email. We rebuilt their infrastructure from scratch and turned it into their #1 revenue channel.",
+    achievements: ["Channel Revived", "$1.2M Pipeline Generated", "Consistent Lead Flow"],
+    image: "https://picsum.photos/seed/case9/800/600",
+    about: "HyperGrowth Partners is a boutique consulting firm for Series A startups.",
+    problem: "They had tried cold email a year prior with a cheap, poorly configured setup. The results were so bad they abandoned the channel entirely, relying solely on expensive paid ads.",
+    solution: "We educated them on the importance of infrastructure and built a pristine, high-end sending engine. We started small with 20 mailboxes, ensured perfect technical compliance, and integrated with a top-tier ESP for advanced sequence management.",
+    result: "Cold email quickly outperformed their paid ads. Within 6 months, the new infrastructure generated over $1.2M in qualified pipeline, making outbound their most profitable and consistent acquisition channel."
+  },
+  {
+    id: "nexus-enterprise",
+    company: "Nexus Enterprise",
+    title: "Consolidating 5 different infrastructure providers",
+    description: "Nexus had a fragmented setup across Google, Outlook, Namecheap, and GoDaddy. We brought everything under one roof.",
+    achievements: ["Unified Dashboard", "Simplified Billing", "Improved Deliverability"],
+    image: "https://picsum.photos/seed/case10/800/600",
+    about: "Nexus Enterprise is a large conglomerate with multiple subsidiary brands running independent outbound campaigns.",
+    problem: "Their infrastructure was a mess. Different teams used different registrars and email hosts, leading to inconsistent deliverability, lost login credentials, and a chaotic billing process.",
+    solution: "We executed a massive consolidation project. We transferred all 300+ domains to LeadsKingdom, migrated all existing mailboxes, and standardized the technical setup across all subsidiary brands into a single, unified dashboard.",
+    result: "Nexus gained total visibility and control over their outbound infrastructure. Billing was simplified to a single monthly invoice, and standardizing the technical setup improved overall deliverability across all brands by 18%."
+  }
+];

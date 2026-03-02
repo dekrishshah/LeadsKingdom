@@ -1,30 +1,67 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useMotionValue, useMotionTemplate } from 'motion/react';
-import { Mail, ShieldCheck, Zap, TrendingUp, CheckCircle2, ArrowRight, Layers, Star, ChevronDown } from 'lucide-react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { Mail, ShieldCheck, Zap, TrendingUp, CheckCircle2, ArrowRight, Layers, Star, ChevronDown, Crown } from 'lucide-react';
+import { BrowserRouter, Routes, Route, Link, useLocation, useParams } from 'react-router-dom';
+import { caseStudiesData } from './data';
 
-const Navbar = () => (
-  <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/5">
-    <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-      <Link to="/" className="flex items-center gap-2">
-        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-neon-purple to-indigo-600 flex items-center justify-center">
-          <Mail className="w-5 h-5 text-white" />
+const ScrollHandler = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      const element = document.getElementById(location.hash.substring(1));
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [location]);
+
+  return null;
+};
+
+const Navbar = () => {
+  const location = useLocation();
+  
+  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    if (location.pathname === '/') {
+      e.preventDefault();
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+        window.history.pushState(null, '', `/#${id}`);
+      }
+    }
+  };
+
+  return (
+    <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/5">
+      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <Link to="/" className="flex items-center gap-2">
+          <div className="relative w-8 h-8 rounded-lg bg-gradient-to-br from-neon-purple to-indigo-600 flex items-center justify-center">
+            <Mail className="w-5 h-5 text-white absolute mt-2" />
+            <Crown className="w-4 h-4 text-yellow-400 absolute -mt-3 fill-yellow-400" />
+          </div>
+          <span className="font-display font-bold text-xl tracking-tight">LeadsKingdom</span>
+        </Link>
+        <div className="hidden md:flex items-center gap-8 text-sm font-medium text-white/70">
+          <Link to="/#features" onClick={(e) => handleScroll(e, 'features')} className="hover:text-white transition-colors">Features</Link>
+          <Link to="/#pricing" onClick={(e) => handleScroll(e, 'pricing')} className="hover:text-white transition-colors">Pricing</Link>
+          <Link to="/case-studies" className="hover:text-white transition-colors">Case Studies</Link>
+          <Link to="/#faq" onClick={(e) => handleScroll(e, 'faq')} className="hover:text-white transition-colors">FAQ</Link>
         </div>
-        <span className="font-display font-bold text-xl tracking-tight">InfraMail</span>
-      </Link>
-      <div className="hidden md:flex items-center gap-8 text-sm font-medium text-white/70">
-        <Link to="/#features" className="hover:text-white transition-colors">Features</Link>
-        <Link to="/#pricing" className="hover:text-white transition-colors">Pricing</Link>
-        <Link to="/faq" className="hover:text-white transition-colors">FAQ</Link>
+        <div className="flex items-center gap-4">
+          <Link to="/#pricing" onClick={(e) => handleScroll(e, 'pricing')} className="gradient-border px-5 py-2.5 text-sm font-medium hover:scale-105 transition-transform flex items-center gap-2">
+            Get Started <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
       </div>
-      <div className="flex items-center gap-4">
-        <a href="#pricing" className="gradient-border px-5 py-2.5 text-sm font-medium hover:scale-105 transition-transform flex items-center gap-2">
-          Get Started <ArrowRight className="w-4 h-4" />
-        </a>
-      </div>
-    </div>
-  </nav>
-);
+    </nav>
+  );
+};
 
 const Hero = () => {
   const mouseX = useMotionValue(0);
@@ -70,7 +107,7 @@ const Hero = () => {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon-purple opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-neon-purple"></span>
           </span>
-          SYS.STATUS: OPTIMAL // INFRASTRUCTURE READY
+          One-Click Automated Cold Email Setup
         </motion.div>
         
         <motion.h1
@@ -104,6 +141,11 @@ const Hero = () => {
         >
           <a 
             href="#pricing"
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
+              window.history.pushState(null, '', '/#pricing');
+            }}
             className="group relative inline-flex items-center justify-center px-8 py-4 rounded-full bg-neon-purple text-white text-base font-semibold transition-all hover:scale-105 w-full sm:w-auto overflow-hidden shadow-[0_0_40px_rgba(176,38,255,0.3)] hover:shadow-[0_0_60px_rgba(176,38,255,0.5)]"
           >
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
@@ -113,6 +155,11 @@ const Hero = () => {
           </a>
           <a 
             href="#features"
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
+              window.history.pushState(null, '', '/#features');
+            }}
             className="inline-flex items-center justify-center px-8 py-4 rounded-full bg-white/5 border border-white/10 text-white text-base font-medium hover:bg-white/10 transition-all w-full sm:w-auto backdrop-blur-md"
           >
             Explore Architecture
@@ -280,9 +327,9 @@ const Pricing = () => {
                 ))}
               </ul>
               
-              <button className={`w-full py-3.5 rounded-xl font-medium transition-all ${
+              <button className={`w-full py-3.5 rounded-xl font-medium transition-all duration-300 ${
                 plan.popular 
-                  ? 'bg-neon-purple hover:bg-neon-purple/90 text-white shadow-[0_0_20px_rgba(176,38,255,0.3)]' 
+                  ? 'bg-neon-purple hover:bg-neon-purple/90 text-white shadow-[0_0_20px_rgba(176,38,255,0.3)] hover:shadow-[0_0_40px_rgba(176,38,255,0.6)]' 
                   : 'bg-white/5 hover:bg-white/10 text-white border border-white/10'
               }`}>
                 Get Started
@@ -362,7 +409,7 @@ const WallOfLove = () => {
     <section className="py-24 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 mb-16 text-center">
         <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">Trusted by top outbound teams</h2>
-        <p className="text-white/60 text-lg">Join hundreds of companies scaling their revenue with InfraMail.</p>
+        <p className="text-white/60 text-lg">Join hundreds of companies scaling their revenue with LeadsKingdom.</p>
       </div>
 
       <div className="relative mask-edges">
@@ -378,7 +425,83 @@ const WallOfLove = () => {
   );
 };
 
-const FAQPage = () => {
+const CaseStudiesSection = ({ limit, showDetailsButton, showViewAllButton }: { limit?: number, showDetailsButton?: boolean, showViewAllButton?: boolean }) => {
+  const displayCases = limit ? caseStudiesData.slice(0, limit) : caseStudiesData;
+
+  return (
+    <section id="case-studies" className="py-24 relative overflow-hidden bg-obsidian-light">
+      <div className="max-w-7xl mx-auto px-6">
+        {!showDetailsButton && (
+          <div className="mb-20 text-center">
+            <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">Proven Results</h2>
+            <p className="text-white/60 text-lg max-w-2xl mx-auto">See how top teams are using LeadsKingdom to dominate their outbound campaigns.</p>
+          </div>
+        )}
+        
+        <div className="space-y-24">
+          {displayCases.map((c, i) => {
+            const isEven = i % 2 === 0;
+            return (
+              <div key={i} className={`flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} gap-12 items-center`}>
+                <motion.div 
+                  initial={{ opacity: 0, x: isEven ? -50 : 50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                  className="w-full md:w-1/2"
+                >
+                  <div className="relative rounded-2xl overflow-hidden border border-white/10 group">
+                    <div className="absolute inset-0 bg-neon-purple/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 pointer-events-none" />
+                    <img src={c.image} alt={c.company} className="w-full h-[350px] md:h-[400px] object-cover transition-transform duration-700 group-hover:scale-105" referrerPolicy="no-referrer" />
+                    <div className="absolute bottom-6 left-6 z-20 bg-black/60 backdrop-blur-md px-4 py-2 rounded-lg border border-white/10">
+                      <span className="font-display font-bold text-white">{c.company}</span>
+                    </div>
+                  </div>
+                </motion.div>
+                
+                <motion.div 
+                  initial={{ opacity: 0, x: isEven ? 50 : -50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                  className="w-full md:w-1/2 space-y-6"
+                >
+                  <h3 className="text-3xl font-display font-bold leading-tight">{c.title}</h3>
+                  <p className="text-white/60 text-lg leading-relaxed">{c.description}</p>
+                  <div className="space-y-3 pt-4">
+                    {c.achievements.map((ach, j) => (
+                      <div key={j} className="flex items-center gap-3">
+                        <CheckCircle2 className="w-5 h-5 text-neon-purple shrink-0" />
+                        <span className="text-white/80 font-medium">{ach}</span>
+                      </div>
+                    ))}
+                  </div>
+                  {showDetailsButton && (
+                    <div className="pt-6">
+                      <Link to={`/case-studies/${c.id}`} className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition-all">
+                        View Case Study <ArrowRight className="w-4 h-4 ml-2" />
+                      </Link>
+                    </div>
+                  )}
+                </motion.div>
+              </div>
+            );
+          })}
+        </div>
+
+        {showViewAllButton && (
+          <div className="mt-20 text-center">
+            <Link to="/case-studies" className="inline-flex items-center justify-center px-8 py-4 rounded-full bg-neon-purple text-white text-base font-semibold transition-all hover:scale-105 shadow-[0_0_30px_rgba(176,38,255,0.3)]">
+              View All Case Studies <ArrowRight className="w-5 h-5 ml-2" />
+            </Link>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+};
+
+const FAQ = () => {
   const faqs = [
     {
       q: "Why not just use Google Workspace or Outlook?",
@@ -405,12 +528,12 @@ const FAQPage = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <div className="min-h-screen bg-black text-white pt-32 pb-24 relative">
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-neon-purple/10 blur-[150px] rounded-full pointer-events-none" />
+    <section id="faq" className="py-24 relative bg-black">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-neon-purple/10 blur-[150px] rounded-full pointer-events-none" />
       
       <div className="max-w-3xl mx-auto px-6 relative z-10">
         <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-display font-bold mb-6">Frequently Asked Questions</h1>
+          <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">Frequently Asked Questions</h2>
           <p className="text-white/60 text-lg">Everything you need to know about our infrastructure.</p>
         </div>
 
@@ -455,33 +578,113 @@ const FAQPage = () => {
           })}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
 const Footer = () => (
-  <footer className="border-t border-white/5 py-12 mt-12 bg-obsidian">
+  <footer className="border-t border-white/5 py-12 bg-obsidian">
     <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
       <div className="flex items-center gap-2">
-        <div className="w-6 h-6 rounded-md bg-gradient-to-br from-neon-purple to-indigo-600 flex items-center justify-center">
-          <Mail className="w-3 h-3 text-white" />
+        <div className="relative w-6 h-6 rounded-md bg-gradient-to-br from-neon-purple to-indigo-600 flex items-center justify-center">
+          <Mail className="w-3.5 h-3.5 text-white absolute mt-1.5" />
+          <Crown className="w-3 h-3 text-yellow-400 absolute -mt-2 fill-yellow-400" />
         </div>
-        <span className="font-display font-bold tracking-tight">InfraMail</span>
+        <span className="font-display font-bold tracking-tight">LeadsKingdom</span>
       </div>
       
       <div className="flex items-center gap-6 text-sm text-white/50">
-        <Link to="/faq" className="hover:text-white transition-colors">FAQ</Link>
+        <a href="#faq" className="hover:text-white transition-colors">FAQ</a>
         <a href="#" className="hover:text-white transition-colors">Terms</a>
         <a href="#" className="hover:text-white transition-colors">Privacy</a>
         <a href="#" className="hover:text-white transition-colors">Contact</a>
       </div>
       
       <p className="text-sm text-white/40">
-        © {new Date().getFullYear()} InfraMail. All rights reserved.
+        © {new Date().getFullYear()} LeadsKingdom. All rights reserved.
       </p>
     </div>
   </footer>
 );
+
+const CaseStudiesHub = () => (
+  <div className="bg-obsidian pt-32">
+    <div className="py-16 text-center px-6">
+      <h1 className="text-4xl md:text-6xl font-display font-bold mb-6">Customer Success Stories</h1>
+      <p className="text-white/60 text-lg max-w-2xl mx-auto">Discover how top outbound teams scale their revenue with LeadsKingdom.</p>
+    </div>
+    <CaseStudiesSection showDetailsButton={true} />
+  </div>
+);
+
+const CaseStudyDetail = () => {
+  const { id } = useParams();
+  const study = caseStudiesData.find(c => c.id === id);
+  
+  if (!study) {
+    return <div className="min-h-screen flex items-center justify-center text-white">Case study not found.</div>;
+  }
+
+  return (
+    <div className="min-h-screen bg-obsidian text-white pt-32 pb-24">
+      <div className="max-w-5xl mx-auto px-6">
+        <Link to="/case-studies" className="inline-flex items-center text-neon-purple hover:text-purple-400 font-medium transition-colors mb-12">
+          <ArrowRight className="w-4 h-4 mr-2 rotate-180" /> Back to Case Studies
+        </Link>
+        
+        <div className="mb-12">
+          <div className="inline-block px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-sm font-medium text-white/80 mb-6">
+            {study.company}
+          </div>
+          <h1 className="text-4xl md:text-6xl font-display font-bold leading-tight mb-8">{study.title}</h1>
+          <img src={study.image} alt={study.company} className="w-full h-[400px] md:h-[500px] object-cover rounded-3xl border border-white/10" referrerPolicy="no-referrer" />
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+          <div className="md:col-span-1 space-y-8">
+            <div className="bg-obsidian-light border border-white/5 rounded-2xl p-6">
+              <h3 className="text-lg font-display font-bold mb-4 text-white">Key Achievements</h3>
+              <ul className="space-y-4">
+                {study.achievements.map((ach, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-neon-purple shrink-0" />
+                    <span className="text-white/70 text-sm">{ach}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="bg-neon-purple/10 border border-neon-purple/20 rounded-2xl p-6 text-center">
+              <h3 className="text-lg font-display font-bold mb-2 text-white">Ready for similar results?</h3>
+              <p className="text-white/60 text-sm mb-6">Let us build your infrastructure today.</p>
+              <Link to="/#pricing" className="inline-block w-full py-3 rounded-xl bg-neon-purple text-white font-medium hover:bg-purple-500 transition-colors">
+                Get Started
+              </Link>
+            </div>
+          </div>
+          
+          <div className="md:col-span-2 space-y-12 text-lg text-white/70 leading-relaxed">
+            <section>
+              <h2 className="text-2xl font-display font-bold text-white mb-4">About the Company</h2>
+              <p>{study.about}</p>
+            </section>
+            <section>
+              <h2 className="text-2xl font-display font-bold text-white mb-4">The Problem</h2>
+              <p>{study.problem}</p>
+            </section>
+            <section>
+              <h2 className="text-2xl font-display font-bold text-white mb-4">The Solution</h2>
+              <p>{study.solution}</p>
+            </section>
+            <section>
+              <h2 className="text-2xl font-display font-bold text-white mb-4">The Result</h2>
+              <p>{study.result}</p>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const LandingPage = () => (
   <div className="bg-obsidian">
@@ -489,18 +692,22 @@ const LandingPage = () => (
     <Features />
     <Pricing />
     <WallOfLove />
+    <CaseStudiesSection limit={5} showViewAllButton={true} />
+    <FAQ />
   </div>
 );
 
 export default function App() {
   return (
     <BrowserRouter>
+      <ScrollHandler />
       <div className="min-h-screen bg-obsidian text-white selection:bg-neon-purple/30">
         <Navbar />
         <main>
           <Routes>
             <Route path="/" element={<LandingPage />} />
-            <Route path="/faq" element={<FAQPage />} />
+            <Route path="/case-studies" element={<CaseStudiesHub />} />
+            <Route path="/case-studies/:id" element={<CaseStudyDetail />} />
           </Routes>
         </main>
         <Footer />
