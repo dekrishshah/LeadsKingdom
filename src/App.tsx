@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useMotionValue, useMotionTemplate } from 'motion/react';
-import { Mail, ShieldCheck, Zap, TrendingUp, CheckCircle2, ArrowRight, Layers, Star, ChevronDown, Crown } from 'lucide-react';
+import { Mail, ShieldCheck, Zap, TrendingUp, CheckCircle2, ArrowRight, Layers, Star, ChevronDown, Crown, Calendar } from 'lucide-react';
 import { BrowserRouter, Routes, Route, Link, useLocation, useParams } from 'react-router-dom';
 import { caseStudiesData } from './data';
 
@@ -48,10 +48,10 @@ const Navbar = () => {
           <span className="font-display font-bold text-xl tracking-tight">LeadsKingdom</span>
         </Link>
         <div className="hidden md:flex items-center gap-8 text-sm font-medium text-white/70">
-          <Link to="/#features" onClick={(e) => handleScroll(e, 'features')} className="hover:text-white transition-colors">Features</Link>
           <Link to="/#pricing" onClick={(e) => handleScroll(e, 'pricing')} className="hover:text-white transition-colors">Pricing</Link>
           <Link to="/case-studies" className="hover:text-white transition-colors">Case Studies</Link>
           <Link to="/#faq" onClick={(e) => handleScroll(e, 'faq')} className="hover:text-white transition-colors">FAQ</Link>
+          <Link to="/contact" className="hover:text-white transition-colors">Contact</Link>
         </div>
         <div className="flex items-center gap-4">
           <Link to="/#pricing" onClick={(e) => handleScroll(e, 'pricing')} className="gradient-border px-5 py-2.5 text-sm font-medium hover:scale-105 transition-transform flex items-center gap-2">
@@ -83,8 +83,22 @@ const Hero = () => {
       <motion.div
         className="pointer-events-none absolute inset-0 z-0"
         style={{
-          background: useMotionTemplate`radial-gradient(600px circle at ${mouseX}px ${mouseY}px, rgba(176, 38, 255, 0.15), transparent 80%)`
+          background: useMotionTemplate`radial-gradient(600px circle at ${mouseX}px ${mouseY}px, rgba(176, 38, 255, 0.3), transparent 80%)`
         }}
+      />
+      
+      {/* Idle State Animation */}
+      <motion.div
+        animate={{
+          scale: [1, 1.2, 1],
+          opacity: [0.05, 0.15, 0.05],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-neon-purple blur-[150px] rounded-full pointer-events-none z-0"
       />
       
       {/* High-tech Grid Background */}
@@ -153,17 +167,12 @@ const Hero = () => {
               Launch Your Infrastructure <Zap className="w-4 h-4" />
             </span>
           </a>
-          <a 
-            href="#features"
-            onClick={(e) => {
-              e.preventDefault();
-              document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
-              window.history.pushState(null, '', '/#features');
-            }}
+          <Link 
+            to="/contact"
             className="inline-flex items-center justify-center px-8 py-4 rounded-full bg-white/5 border border-white/10 text-white text-base font-medium hover:bg-white/10 transition-all w-full sm:w-auto backdrop-blur-md"
           >
-            Explore Architecture
-          </a>
+            Book a Call
+          </Link>
         </motion.div>
       </div>
     </section>
@@ -433,7 +442,7 @@ const CaseStudiesSection = ({ limit, showDetailsButton, showViewAllButton }: { l
       <div className="max-w-7xl mx-auto px-6">
         {!showDetailsButton && (
           <div className="mb-20 text-center">
-            <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">Proven Results</h2>
+            <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">Case Studies</h2>
             <p className="text-white/60 text-lg max-w-2xl mx-auto">See how top teams are using LeadsKingdom to dominate their outbound campaigns.</p>
           </div>
         )}
@@ -597,7 +606,7 @@ const Footer = () => (
         <a href="#faq" className="hover:text-white transition-colors">FAQ</a>
         <a href="#" className="hover:text-white transition-colors">Terms</a>
         <a href="#" className="hover:text-white transition-colors">Privacy</a>
-        <a href="#" className="hover:text-white transition-colors">Contact</a>
+        <Link to="/contact" className="hover:text-white transition-colors">Contact</Link>
       </div>
       
       <p className="text-sm text-white/40">
@@ -697,6 +706,43 @@ const LandingPage = () => (
   </div>
 );
 
+const ContactPage = () => (
+  <div className="min-h-screen bg-obsidian text-white pt-32 pb-24 flex items-center justify-center relative overflow-hidden">
+    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-neon-purple/10 blur-[150px] rounded-full pointer-events-none" />
+
+    <div className="max-w-4xl w-full mx-auto px-6 relative z-10">
+      <div className="text-center mb-16">
+        <h1 className="text-4xl md:text-6xl font-display font-bold mb-6">Get in Touch</h1>
+        <p className="text-white/60 text-lg max-w-2xl mx-auto">Choose how you'd like to connect with our team.</p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <a href="https://cal.com/leadskingdom" target="_blank" rel="noopener noreferrer" className="group relative bg-[#0a0a0a] border border-white/10 rounded-3xl p-10 hover:border-neon-purple/50 transition-all duration-500 hover:shadow-[0_0_40px_rgba(176,38,255,0.15)] hover:-translate-y-1 flex flex-col items-center text-center">
+          <div className="w-20 h-20 rounded-2xl bg-neon-purple/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+            <Calendar className="w-10 h-10 text-neon-purple" />
+          </div>
+          <h3 className="text-2xl font-display font-bold mb-2">Book a Call</h3>
+          <p className="text-white/50 mb-8">Schedule a time to discuss your infrastructure needs.</p>
+          <div className="mt-auto flex items-center text-neon-purple font-medium group-hover:gap-2 transition-all">
+            Select a Time <ArrowRight className="w-5 h-5 ml-2" />
+          </div>
+        </a>
+
+        <a href="mailto:info@leadskingdom.co" className="group relative bg-[#0a0a0a] border border-white/10 rounded-3xl p-10 hover:border-neon-purple/50 transition-all duration-500 hover:shadow-[0_0_40px_rgba(176,38,255,0.15)] hover:-translate-y-1 flex flex-col items-center text-center">
+          <div className="w-20 h-20 rounded-2xl bg-neon-purple/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+            <Mail className="w-10 h-10 text-neon-purple" />
+          </div>
+          <h3 className="text-2xl font-display font-bold mb-2">Email Us</h3>
+          <p className="text-white/50 mb-8">info@leadskingdom.co</p>
+          <div className="mt-auto flex items-center text-neon-purple font-medium group-hover:gap-2 transition-all">
+            Send Message <ArrowRight className="w-5 h-5 ml-2" />
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+);
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -708,6 +754,7 @@ export default function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/case-studies" element={<CaseStudiesHub />} />
             <Route path="/case-studies/:id" element={<CaseStudyDetail />} />
+            <Route path="/contact" element={<ContactPage />} />
           </Routes>
         </main>
         <Footer />
