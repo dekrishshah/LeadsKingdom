@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useMotionValue, useMotionTemplate } from 'motion/react';
-import { Mail, ShieldCheck, Zap, TrendingUp, CheckCircle2, ArrowRight, Layers, Star, ChevronDown, Crown, Calendar } from 'lucide-react';
+import { Mail, ShieldCheck, Zap, TrendingUp, CheckCircle2, ArrowRight, Layers, Star, ChevronDown, Crown, Calendar, X } from 'lucide-react';
 import { BrowserRouter, Routes, Route, Link, useLocation, useParams } from 'react-router-dom';
 import { caseStudiesData } from './data';
 
@@ -115,11 +115,11 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-neon-purple mb-8 backdrop-blur-md"
+          className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-neon-purple/10 border border-neon-purple/30 text-sm font-medium text-purple-200 mb-8 backdrop-blur-md shadow-[0_0_20px_rgba(176,38,255,0.2)]"
         >
-          <span className="relative flex h-2 w-2">
+          <span className="relative flex h-2.5 w-2.5">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon-purple opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-neon-purple"></span>
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-neon-purple"></span>
           </span>
           One-Click Automated Cold Email Setup
         </motion.div>
@@ -249,12 +249,14 @@ const Pricing = () => {
       recommended: false,
       stripeLink: "https://buy.stripe.com/4gMcN73WM3C98rG0R06wE0e",
       features: [
-        "250 Dedicated Mailboxes",
-        "Full Technical Setup (SPF/DKIM/DMARC)",
-        "Automated Warming Included",
-        "Standard Support",
-        "Custom Domain Procurement",
-        "Inbox Rotation Strategy"
+        { text: "250 Dedicated Mailboxes", included: true },
+        { text: "Full Technical Setup (SPF/DKIM/DMARC)", included: true },
+        { text: "Automated Warming Included", included: true },
+        { text: "Custom Domain Procurement", included: true },
+        { text: "Inbox Rotation Strategy", included: true },
+        { text: "Standard Support", included: true },
+        { text: "Dedicated Account Manager", included: false },
+        { text: "Custom Sending Architecture", included: false }
       ]
     },
     {
@@ -266,13 +268,14 @@ const Pricing = () => {
       recommended: false,
       stripeLink: "https://buy.stripe.com/3cI8wR2SIfkR23i57g6wE0f",
       features: [
-        "500 Dedicated Mailboxes",
-        "Full Technical Setup (SPF/DKIM/DMARC)",
-        "Automated Warming Included",
-        "Priority Support",
-        "Dedicated Account Manager",
-        "Custom Domain Procurement",
-        "Inbox Rotation Strategy"
+        { text: "500 Dedicated Mailboxes", included: true },
+        { text: "Full Technical Setup (SPF/DKIM/DMARC)", included: true },
+        { text: "Automated Warming Included", included: true },
+        { text: "Custom Domain Procurement", included: true },
+        { text: "Inbox Rotation Strategy", included: true },
+        { text: "Priority Support", included: true },
+        { text: "Dedicated Account Manager", included: true },
+        { text: "Custom Sending Architecture", included: false }
       ]
     },
     {
@@ -284,13 +287,14 @@ const Pricing = () => {
       recommended: true,
       stripeLink: "https://buy.stripe.com/6oUeVfalab4BcHWfLU6wE0g",
       features: [
-        "1000 Dedicated Mailboxes",
-        "Full Technical Setup (SPF/DKIM/DMARC)",
-        "Automated Warming Included",
-        "24/7 Slack Support",
-        "Custom Sending Architecture",
-        "Custom Domain Procurement",
-        "Inbox Rotation Strategy"
+        { text: "1000 Dedicated Mailboxes", included: true },
+        { text: "Full Technical Setup (SPF/DKIM/DMARC)", included: true },
+        { text: "Automated Warming Included", included: true },
+        { text: "Custom Domain Procurement", included: true },
+        { text: "Inbox Rotation Strategy", included: true },
+        { text: "24/7 Slack Support", included: true },
+        { text: "Dedicated Account Manager", included: true },
+        { text: "Custom Sending Architecture", included: true }
       ]
     }
   ];
@@ -303,7 +307,7 @@ const Pricing = () => {
           <p className="text-white/60 text-lg max-w-2xl mx-auto">No hidden fees. No complex tiers. Just raw sending power at a fraction of the cost of Google Workspace.</p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto items-center">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto items-stretch">
           {plans.map((plan, index) => (
             <motion.div
               key={index}
@@ -348,9 +352,13 @@ const Pricing = () => {
               
               <ul className="space-y-4 mb-8 flex-1">
                 {plan.features.map((feature, fIndex) => (
-                  <li key={fIndex} className="flex items-start gap-3">
-                    <CheckCircle2 className={`w-5 h-5 shrink-0 ${plan.recommended ? 'text-yellow-400' : 'text-neon-purple'}`} />
-                    <span className="text-white/80 text-sm">{feature}</span>
+                  <li key={fIndex} className={`flex items-start gap-3 ${feature.included ? '' : 'opacity-40'}`}>
+                    {feature.included ? (
+                      <CheckCircle2 className={`w-5 h-5 shrink-0 ${plan.recommended ? 'text-yellow-400' : 'text-neon-purple'}`} />
+                    ) : (
+                      <X className="w-5 h-5 shrink-0 text-white/50" />
+                    )}
+                    <span className="text-white/80 text-sm">{feature.text}</span>
                   </li>
                 ))}
               </ul>
