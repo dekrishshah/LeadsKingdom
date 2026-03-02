@@ -54,7 +54,7 @@ const Navbar = () => {
           <Link to="/#faq" onClick={(e) => handleScroll(e, 'faq')} className="hover:text-white transition-colors">FAQ</Link>
           <Link to="/contact" className="hover:text-white transition-colors">Contact</Link>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="hidden md:flex items-center gap-4">
           <Link to="/#pricing" onClick={(e) => handleScroll(e, 'pricing')} className="gradient-border px-5 py-2.5 text-sm font-medium hover:scale-105 transition-transform flex items-center gap-2">
             Get Started <ArrowRight className="w-4 h-4" />
           </Link>
@@ -116,11 +116,11 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-neon-purple/10 border border-neon-purple/30 text-sm font-medium text-purple-200 mb-8 backdrop-blur-md shadow-[0_0_20px_rgba(176,38,255,0.2)]"
+          className="inline-flex items-center gap-1.5 md:gap-3 px-2.5 md:px-5 py-1 md:py-2.5 rounded-full bg-neon-purple/10 border border-neon-purple/30 text-[9px] sm:text-xs md:text-sm font-medium text-purple-200 mb-6 md:mb-8 backdrop-blur-md shadow-[0_0_20px_rgba(176,38,255,0.2)] whitespace-nowrap"
         >
-          <span className="relative flex h-2.5 w-2.5">
+          <span className="relative flex h-1.5 md:h-2.5 w-1.5 md:w-2.5">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon-purple opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-neon-purple"></span>
+            <span className="relative inline-flex rounded-full h-1.5 md:h-2.5 w-1.5 md:w-2.5 bg-neon-purple"></span>
           </span>
           One-Click Automated Cold Email Setup
         </motion.div>
@@ -129,7 +129,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-5xl md:text-7xl lg:text-8xl font-display font-bold tracking-tighter text-white mb-6 leading-[1.1]"
+          className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-display font-bold tracking-tighter text-white mb-6 leading-[1.1]"
         >
           We Build Your Cold <br className="hidden md:block" />
           Email Infrastructure. <br />
@@ -142,7 +142,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="max-w-2xl mx-auto text-lg md:text-xl text-white/50 mb-10 font-medium"
+          className="max-w-2xl mx-auto text-sm md:text-xl text-white/50 mb-8 md:mb-10 font-medium px-4 md:px-0"
         >
           You only pay for the mailboxes—no setup fees, no hidden costs. 
           Enterprise-grade deliverability deployed in minutes.
@@ -168,12 +168,24 @@ const Hero = () => {
               Launch Your Infrastructure <Zap className="w-4 h-4" />
             </span>
           </a>
+          
+          {/* Desktop Book a Call */}
           <Link 
             to="/contact"
-            className="inline-flex items-center justify-center px-8 py-4 rounded-full bg-white/5 border border-white/10 text-white text-base font-medium hover:bg-white/10 transition-all w-full sm:w-auto backdrop-blur-md"
+            className="hidden sm:inline-flex items-center justify-center px-8 py-4 rounded-full bg-white/5 border border-white/10 text-white text-base font-medium hover:bg-white/10 transition-all w-full sm:w-auto backdrop-blur-md"
           >
             Book a Call
           </Link>
+
+          {/* Mobile Book a Call */}
+          <motion.div whileTap={{ scale: 0.95 }} className="sm:hidden mt-4">
+            <Link 
+              to="/contact"
+              className="inline-flex items-center gap-2 text-white/80 text-sm font-medium border-b border-white/30 pb-1 hover:text-white hover:border-white transition-all group"
+            >
+              Book a Call <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </motion.div>
         </motion.div>
       </div>
     </section>
