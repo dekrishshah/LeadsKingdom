@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <linearGradient id="grad" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#b528ff" />
+      <stop offset="100%" stop-color="#5b24ff" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="120" height="120" rx="28" fill="url(#grad)" />
+  
+  <!-- Crown -->
+  <path d="M 28 25 L 42 40 L 60 10 L 78 40 L 92 25 L 84 65 L 36 65 Z" fill="#ffcc00" stroke="#ffcc00" stroke-width="4" stroke-linejoin="round" />
+  
+  <!-- Envelope Body -->
+  <rect x="22" y="45" width="76" height="55" rx="8" fill="url(#grad)" stroke="white" stroke-width="8" />
+  
+  <!-- Inner yellow pill -->
+  <path d="M 40 56 L 80 56" stroke="#ffcc00" stroke-width="6" stroke-linecap="round" />
+  
+  <!-- Envelope Flap (V shape) -->
+  <path d="M 22 45 L 60 72 L 98 45" fill="none" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+</svg>

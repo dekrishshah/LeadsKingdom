@@ -522,7 +522,11 @@ const CaseStudiesSection = ({ limit, showDetailsButton, showViewAllButton }: { l
                   transition={{ duration: 0.6 }}
                   className="w-full md:w-1/2 space-y-6"
                 >
-                  <h3 className="text-3xl font-display font-bold leading-tight">{c.title}</h3>
+                  <Link to={`/case-studies/${c.id}`} className="group inline-block">
+                    <h3 className="text-3xl font-display font-bold leading-tight inline bg-[length:0%_2px] bg-left-bottom bg-no-repeat bg-gradient-to-r from-neon-purple to-neon-purple transition-[background-size] duration-300 group-hover:bg-[length:100%_2px] pb-1">
+                      {c.title}
+                    </h3>
+                  </Link>
                   <p className="text-white/60 text-lg leading-relaxed">{c.description}</p>
                   <div className="space-y-3 pt-4">
                     {c.achievements.map((ach, j) => (
@@ -592,7 +596,7 @@ const FAQ = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="py-24 relative bg-black">
+    <section id="faq" className="py-24 relative bg-black overflow-hidden">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-neon-purple/10 blur-[150px] rounded-full pointer-events-none" />
       
       <div className="max-w-3xl mx-auto px-6 relative z-10">

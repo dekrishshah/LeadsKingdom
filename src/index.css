@@ -83,6 +83,10 @@
   100% { transform: translateX(100%); }
 }
 
+html, body {
+  @apply overflow-x-hidden;
+}
+
 body {
   @apply bg-obsidian text-white antialiased selection:bg-neon-purple/30 selection:text-white;
 }
