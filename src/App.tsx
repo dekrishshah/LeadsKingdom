@@ -42,10 +42,7 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/5">
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
-          <div className="relative w-8 h-8 rounded-lg bg-gradient-to-br from-neon-purple to-indigo-600 flex items-center justify-center">
-            <Mail className="w-5 h-5 text-white absolute mt-2" />
-            <Crown className="w-4 h-4 text-yellow-400 absolute -mt-3 fill-yellow-400" />
-          </div>
+          <img src="/logo.png" alt="LeadsKingdom Logo" className="w-8 h-8 rounded-lg object-cover" />
           <span className="font-display font-bold text-xl tracking-tight">LeadsKingdom</span>
         </Link>
         <div className="hidden md:flex items-center gap-8 text-sm font-medium text-white/70">
@@ -174,7 +171,7 @@ const Hero = () => {
             to="/contact"
             className="hidden sm:inline-flex items-center justify-center px-8 py-4 rounded-full bg-white/5 border border-white/10 text-white text-base font-medium hover:bg-white/10 transition-all w-full sm:w-auto backdrop-blur-md"
           >
-            Book a Call
+            Book a call
           </Link>
 
           {/* Mobile Book a Call */}
@@ -183,7 +180,7 @@ const Hero = () => {
               to="/contact"
               className="inline-flex items-center gap-2 text-white/80 text-sm font-medium border-b border-white/30 pb-1 hover:text-white hover:border-white transition-all group"
             >
-              Book a Call <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              Book a call <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </motion.div>
         </motion.div>
@@ -522,7 +519,12 @@ const CaseStudiesSection = ({ limit, showDetailsButton, showViewAllButton }: { l
                   transition={{ duration: 0.6 }}
                   className="w-full md:w-1/2 space-y-6"
                 >
-                  <h3 className="text-3xl font-display font-bold leading-tight">{c.title}</h3>
+                  <Link to={`/case-studies/${c.id}`} className="group/title inline-block">
+                    <h3 className="text-3xl font-display font-bold leading-tight relative">
+                      {c.title}
+                      <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-neon-purple transition-all duration-300 group-hover/title:w-full"></span>
+                    </h3>
+                  </Link>
                   <p className="text-white/60 text-lg leading-relaxed">{c.description}</p>
                   <div className="space-y-3 pt-4">
                     {c.achievements.map((ach, j) => (
@@ -650,10 +652,7 @@ const Footer = () => (
   <footer className="border-t border-white/5 py-12 bg-obsidian">
     <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
       <div className="flex items-center gap-2">
-        <div className="relative w-6 h-6 rounded-md bg-gradient-to-br from-neon-purple to-indigo-600 flex items-center justify-center">
-          <Mail className="w-3.5 h-3.5 text-white absolute mt-1.5" />
-          <Crown className="w-3 h-3 text-yellow-400 absolute -mt-2 fill-yellow-400" />
-        </div>
+        <img src="/logo.png" alt="LeadsKingdom Logo" className="w-6 h-6 rounded-md object-cover" />
         <span className="font-display font-bold tracking-tight">LeadsKingdom</span>
       </div>
       
@@ -842,7 +841,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <ScrollHandler />
-      <div className="min-h-screen bg-obsidian text-white selection:bg-neon-purple/30">
+      <div className="min-h-screen bg-obsidian text-white selection:bg-neon-purple/30 overflow-x-hidden">
         <Navbar />
         <main>
           <Routes>
