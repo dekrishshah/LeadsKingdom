@@ -174,7 +174,7 @@ const Hero = () => {
             to="/contact"
             className="hidden sm:inline-flex items-center justify-center px-8 py-4 rounded-full bg-white/5 border border-white/10 text-white text-base font-medium hover:bg-white/10 transition-all w-full sm:w-auto backdrop-blur-md"
           >
-            Book a call
+            Book a Call
           </Link>
 
           {/* Mobile Book a Call */}
@@ -183,7 +183,7 @@ const Hero = () => {
               to="/contact"
               className="inline-flex items-center gap-2 text-white/80 text-sm font-medium border-b border-white/30 pb-1 hover:text-white hover:border-white transition-all group"
             >
-              Book a call <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              Book a Call <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </motion.div>
         </motion.div>
@@ -522,12 +522,7 @@ const CaseStudiesSection = ({ limit, showDetailsButton, showViewAllButton }: { l
                   transition={{ duration: 0.6 }}
                   className="w-full md:w-1/2 space-y-6"
                 >
-                  <Link to={`/case-studies/${c.id}`} className="group/title inline-block">
-                    <h3 className="text-3xl font-display font-bold leading-tight relative">
-                      {c.title}
-                      <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-neon-purple transition-all duration-300 group-hover/title:w-full"></span>
-                    </h3>
-                  </Link>
+                  <h3 className="text-3xl font-display font-bold leading-tight">{c.title}</h3>
                   <p className="text-white/60 text-lg leading-relaxed">{c.description}</p>
                   <div className="space-y-3 pt-4">
                     {c.achievements.map((ach, j) => (
@@ -847,7 +842,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <ScrollHandler />
-      <div className="min-h-screen bg-obsidian text-white selection:bg-neon-purple/30 overflow-x-hidden">
+      <div className="min-h-screen bg-obsidian text-white selection:bg-neon-purple/30">
         <Navbar />
         <main>
           <Routes>
