@@ -246,11 +246,15 @@ const Pricing = () => {
       mailboxes: "250",
       price: "500",
       popular: false,
+      recommended: false,
+      stripeLink: "https://buy.stripe.com/4gMcN73WM3C98rG0R06wE0e",
       features: [
         "250 Dedicated Mailboxes",
         "Full Technical Setup (SPF/DKIM/DMARC)",
         "Automated Warming Included",
-        "Standard Support"
+        "Standard Support",
+        "Custom Domain Procurement",
+        "Inbox Rotation Strategy"
       ]
     },
     {
@@ -259,12 +263,16 @@ const Pricing = () => {
       mailboxes: "500",
       price: "800",
       popular: true,
+      recommended: false,
+      stripeLink: "https://buy.stripe.com/3cI8wR2SIfkR23i57g6wE0f",
       features: [
         "500 Dedicated Mailboxes",
         "Full Technical Setup (SPF/DKIM/DMARC)",
         "Automated Warming Included",
         "Priority Support",
-        "Dedicated Account Manager"
+        "Dedicated Account Manager",
+        "Custom Domain Procurement",
+        "Inbox Rotation Strategy"
       ]
     },
     {
@@ -273,12 +281,16 @@ const Pricing = () => {
       mailboxes: "1000",
       price: "1,500",
       popular: false,
+      recommended: true,
+      stripeLink: "https://buy.stripe.com/6oUeVfalab4BcHWfLU6wE0g",
       features: [
         "1000 Dedicated Mailboxes",
         "Full Technical Setup (SPF/DKIM/DMARC)",
         "Automated Warming Included",
         "24/7 Slack Support",
-        "Custom Sending Architecture"
+        "Custom Sending Architecture",
+        "Custom Domain Procurement",
+        "Inbox Rotation Strategy"
       ]
     }
   ];
@@ -291,7 +303,7 @@ const Pricing = () => {
           <p className="text-white/60 text-lg max-w-2xl mx-auto">No hidden fees. No complex tiers. Just raw sending power at a fraction of the cost of Google Workspace.</p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto items-center">
           {plans.map((plan, index) => (
             <motion.div
               key={index}
@@ -299,15 +311,22 @@ const Pricing = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className={`relative bg-obsidian-light rounded-3xl p-8 flex flex-col ${
-                plan.popular 
-                  ? 'border border-neon-purple shadow-[0_0_40px_rgba(176,38,255,0.15)] scale-105 z-10' 
-                  : 'border border-white/5'
+              className={`relative bg-obsidian-light rounded-3xl p-8 flex flex-col transition-all duration-500 ${
+                plan.popular
+                  ? 'border border-neon-purple shadow-[0_0_40px_rgba(176,38,255,0.15)] md:scale-105 z-10 hover:shadow-[0_0_60px_rgba(176,38,255,0.3)]' 
+                  : plan.recommended
+                  ? 'border border-yellow-400 shadow-[0_0_40px_rgba(250,204,21,0.15)] md:scale-105 z-10 hover:shadow-[0_0_60px_rgba(250,204,21,0.3)]'
+                  : 'border border-white/5 hover:border-neon-purple/50 hover:shadow-[0_0_30px_rgba(176,38,255,0.1)]'
               }`}
             >
               {plan.popular && (
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-neon-purple text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
                   Most Popular
+                </div>
+              )}
+              {plan.recommended && (
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-yellow-500 to-yellow-400 text-black text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-[0_0_20px_rgba(250,204,21,0.4)]">
+                  Recommended By Us
                 </div>
               )}
               
@@ -322,7 +341,7 @@ const Pricing = () => {
                   <span className="text-white/60">/mo</span>
                 </div>
                 <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/5 text-sm font-medium text-white/80">
-                  <Mail className="w-4 h-4 text-neon-purple" />
+                  <Mail className={`w-4 h-4 ${plan.recommended ? 'text-yellow-400' : 'text-neon-purple'}`} />
                   {plan.mailboxes} Mailboxes
                 </div>
               </div>
@@ -330,19 +349,26 @@ const Pricing = () => {
               <ul className="space-y-4 mb-8 flex-1">
                 {plan.features.map((feature, fIndex) => (
                   <li key={fIndex} className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-neon-purple shrink-0" />
+                    <CheckCircle2 className={`w-5 h-5 shrink-0 ${plan.recommended ? 'text-yellow-400' : 'text-neon-purple'}`} />
                     <span className="text-white/80 text-sm">{feature}</span>
                   </li>
                 ))}
               </ul>
               
-              <button className={`w-full py-3.5 rounded-xl font-medium transition-all duration-300 ${
-                plan.popular 
-                  ? 'bg-neon-purple hover:bg-neon-purple/90 text-white shadow-[0_0_20px_rgba(176,38,255,0.3)] hover:shadow-[0_0_40px_rgba(176,38,255,0.6)]' 
-                  : 'bg-white/5 hover:bg-white/10 text-white border border-white/10'
-              }`}>
+              <a 
+                href={plan.stripeLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`w-full py-3.5 rounded-xl font-medium transition-all duration-300 text-center block ${
+                  plan.popular
+                    ? 'bg-neon-purple hover:bg-neon-purple/90 text-white shadow-[0_0_20px_rgba(176,38,255,0.3)] hover:shadow-[0_0_40px_rgba(176,38,255,0.6)]' 
+                    : plan.recommended
+                    ? 'bg-yellow-400 hover:bg-yellow-500 text-black shadow-[0_0_20px_rgba(250,204,21,0.3)] hover:shadow-[0_0_40px_rgba(250,204,21,0.6)]'
+                    : 'bg-white/5 hover:bg-white/10 text-white border border-white/10 hover:border-neon-purple/50'
+                }`}
+              >
                 Get Started
-              </button>
+              </a>
             </motion.div>
           ))}
         </div>
@@ -487,7 +513,7 @@ const CaseStudiesSection = ({ limit, showDetailsButton, showViewAllButton }: { l
                   </div>
                   {showDetailsButton && (
                     <div className="pt-6">
-                      <Link to={`/case-studies/${c.id}`} className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition-all">
+                      <Link to={`/case-studies/${c.id}`} className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-white/5 border border-neon-purple/50 text-white font-medium hover:bg-neon-purple/10 hover:shadow-[0_0_20px_rgba(176,38,255,0.4)] transition-all">
                         View Case Study <ArrowRight className="w-4 h-4 ml-2" />
                       </Link>
                     </div>
@@ -531,6 +557,14 @@ const FAQ = () => {
     {
       q: "Can I integrate with my existing tools?",
       a: "Absolutely. Our mailboxes connect via SMTP/IMAP to any major platform including Instantly, Smartlead, and Reachinbox with a single click."
+    },
+    {
+      q: "Do I need to buy my own domains?",
+      a: "No, we handle all domain purchasing, registration, and DNS management as part of the service. You don't need to lift a finger."
+    },
+    {
+      q: "What happens if a domain gets blacklisted?",
+      a: "We actively monitor all domains. If one burns, we automatically replace it and set up a new one at no extra cost to ensure your campaigns never stop."
     }
   ];
 
@@ -603,9 +637,8 @@ const Footer = () => (
       </div>
       
       <div className="flex items-center gap-6 text-sm text-white/50">
-        <a href="#faq" className="hover:text-white transition-colors">FAQ</a>
-        <a href="#" className="hover:text-white transition-colors">Terms</a>
-        <a href="#" className="hover:text-white transition-colors">Privacy</a>
+        <Link to="/terms" className="hover:text-white transition-colors">Terms</Link>
+        <Link to="/privacy" className="hover:text-white transition-colors">Privacy</Link>
         <Link to="/contact" className="hover:text-white transition-colors">Contact</Link>
       </div>
       
@@ -701,7 +734,7 @@ const LandingPage = () => (
     <Features />
     <Pricing />
     <WallOfLove />
-    <CaseStudiesSection limit={5} showViewAllButton={true} />
+    <CaseStudiesSection limit={3} showViewAllButton={true} />
     <FAQ />
   </div>
 );
@@ -717,7 +750,7 @@ const ContactPage = () => (
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <a href="https://cal.com/leadskingdom" target="_blank" rel="noopener noreferrer" className="group relative bg-[#0a0a0a] border border-white/10 rounded-3xl p-10 hover:border-neon-purple/50 transition-all duration-500 hover:shadow-[0_0_40px_rgba(176,38,255,0.15)] hover:-translate-y-1 flex flex-col items-center text-center">
+        <a href="https://cal.com/leadskingdom/30min" target="_blank" rel="noopener noreferrer" className="group relative bg-[#0a0a0a] border border-white/10 rounded-3xl p-10 hover:border-neon-purple/50 transition-all duration-500 hover:shadow-[0_0_40px_rgba(176,38,255,0.15)] hover:-translate-y-1 flex flex-col items-center text-center">
           <div className="w-20 h-20 rounded-2xl bg-neon-purple/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
             <Calendar className="w-10 h-10 text-neon-purple" />
           </div>
@@ -743,6 +776,47 @@ const ContactPage = () => (
   </div>
 );
 
+const PrivacyPage = () => (
+  <div className="min-h-screen bg-obsidian text-white pt-32 pb-24">
+    <div className="max-w-3xl mx-auto px-6">
+      <h1 className="text-4xl font-display font-bold mb-8">Privacy Policy</h1>
+      <div className="space-y-6 text-white/70 leading-relaxed">
+        <p>Last updated: {new Date().toLocaleDateString()}</p>
+        <p>At LeadsKingdom, we take your privacy seriously. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.</p>
+        <h2 className="text-2xl font-display font-bold text-white mt-8 mb-4">Information We Collect</h2>
+        <p>We may collect personal information that you voluntarily provide to us when you register on the website, express an interest in obtaining information about us or our products and services, when you participate in activities on the website, or otherwise when you contact us.</p>
+        <h2 className="text-2xl font-display font-bold text-white mt-8 mb-4">How We Use Your Information</h2>
+        <p>We use personal information collected via our website for a variety of business purposes described below. We process your personal information for these purposes in reliance on our legitimate business interests, in order to enter into or perform a contract with you, with your consent, and/or for compliance with our legal obligations.</p>
+        <ul className="list-disc pl-6 space-y-2">
+          <li>To facilitate account creation and logon process.</li>
+          <li>To send administrative information to you.</li>
+          <li>To fulfill and manage your orders.</li>
+        </ul>
+        <h2 className="text-2xl font-display font-bold text-white mt-8 mb-4">Contact Us</h2>
+        <p>If you have questions or comments about this notice, you may email us at info@leadskingdom.co.</p>
+      </div>
+    </div>
+  </div>
+);
+
+const TermsPage = () => (
+  <div className="min-h-screen bg-obsidian text-white pt-32 pb-24">
+    <div className="max-w-3xl mx-auto px-6">
+      <h1 className="text-4xl font-display font-bold mb-8">Terms of Service</h1>
+      <div className="space-y-6 text-white/70 leading-relaxed">
+        <p>Last updated: {new Date().toLocaleDateString()}</p>
+        <p>These Terms of Service constitute a legally binding agreement made between you, whether personally or on behalf of an entity ("you") and LeadsKingdom ("we," "us" or "our"), concerning your access to and use of our website and services.</p>
+        <h2 className="text-2xl font-display font-bold text-white mt-8 mb-4">Agreement to Terms</h2>
+        <p>By accessing the site, you agree that you have read, understood, and agree to be bound by all of these Terms of Service. If you do not agree with all of these Terms of Service, then you are expressly prohibited from using the site and you must discontinue use immediately.</p>
+        <h2 className="text-2xl font-display font-bold text-white mt-8 mb-4">User Representations</h2>
+        <p>By using the Site, you represent and warrant that: (1) all registration information you submit will be true, accurate, current, and complete; (2) you will maintain the accuracy of such information and promptly update such registration information as necessary.</p>
+        <h2 className="text-2xl font-display font-bold text-white mt-8 mb-4">Prohibited Activities</h2>
+        <p>You may not access or use the Site for any purpose other than that for which we make the Site available. The Site may not be used in connection with any commercial endeavors except those that are specifically endorsed or approved by us.</p>
+      </div>
+    </div>
+  </div>
+);
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -755,6 +829,8 @@ export default function App() {
             <Route path="/case-studies" element={<CaseStudiesHub />} />
             <Route path="/case-studies/:id" element={<CaseStudyDetail />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="/privacy" element={<PrivacyPage />} />
+            <Route path="/terms" element={<TermsPage />} />
           </Routes>
         </main>
         <Footer />
