@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useMotionValue, useMotionTemplate } from 'motion/react';
 import { Mail, ShieldCheck, Zap, TrendingUp, CheckCircle2, ArrowRight, Layers, Star, ChevronDown, Crown, Calendar, X } from 'lucide-react';
 import { BrowserRouter, Routes, Route, Link, useLocation, useParams } from 'react-router-dom';
+import { Analytics } from "@vercel/analytics/react";
 import { caseStudiesData } from './data';
 
 const ScrollHandler = () => {
@@ -843,6 +844,7 @@ export default function App() {
         </main>
         <Footer />
       </div>
+      <Analytics />
     </BrowserRouter>
   );
 }
