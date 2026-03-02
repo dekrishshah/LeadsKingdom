@@ -399,18 +399,18 @@ const Pricing = () => {
 };
 
 const TestimonialCard: React.FC<{ t: { quote: string; name: string; handle: string; avatar: string } }> = ({ t }) => (
-  <div className="w-[400px] shrink-0 bg-[#0a0a0a] border border-neon-purple/30 rounded-2xl p-6 glow-card mx-3">
-    <div className="flex gap-1 mb-4">
+  <div className="w-[300px] md:w-[400px] shrink-0 bg-[#0a0a0a] border border-neon-purple/30 rounded-2xl p-5 md:p-6 glow-card mx-2 md:mx-3">
+    <div className="flex gap-1 mb-3 md:mb-4">
       {[...Array(5)].map((_, i) => (
-        <Star key={i} className="w-4 h-4 fill-neon-purple text-neon-purple" />
+        <Star key={i} className="w-3 h-3 md:w-4 md:h-4 fill-neon-purple text-neon-purple" />
       ))}
     </div>
-    <p className="text-white text-lg mb-6 leading-relaxed">"{t.quote}"</p>
+    <p className="text-white text-base md:text-lg mb-4 md:mb-6 leading-relaxed">"{t.quote}"</p>
     <div className="flex items-center gap-3">
-      <img src={t.avatar} alt={t.name} className="w-10 h-10 rounded-full object-cover" referrerPolicy="no-referrer" />
+      <img src={t.avatar} alt={t.name} className="w-8 h-8 md:w-10 md:h-10 rounded-full object-cover" referrerPolicy="no-referrer" />
       <div>
-        <div className="text-white font-medium text-sm">{t.name}</div>
-        <div className="text-white/40 text-sm">{t.handle}</div>
+        <div className="text-white font-medium text-xs md:text-sm">{t.name}</div>
+        <div className="text-white/40 text-xs md:text-sm">{t.handle}</div>
       </div>
     </div>
   </div>
@@ -508,9 +508,9 @@ const CaseStudiesSection = ({ limit, showDetailsButton, showViewAllButton }: { l
                 >
                   <div className="relative rounded-2xl overflow-hidden border border-white/10 group">
                     <div className="absolute inset-0 bg-neon-purple/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 pointer-events-none" />
-                    <img src={c.image} alt={c.company} className="w-full h-[350px] md:h-[400px] object-cover transition-transform duration-700 group-hover:scale-105" referrerPolicy="no-referrer" />
-                    <div className="absolute bottom-6 left-6 z-20 bg-black/60 backdrop-blur-md px-4 py-2 rounded-lg border border-white/10">
-                      <span className="font-display font-bold text-white">{c.company}</span>
+                    <img src={c.image} alt={c.company} className="w-full h-[200px] sm:h-[250px] md:h-[400px] object-cover transition-transform duration-700 group-hover:scale-105" referrerPolicy="no-referrer" />
+                    <div className="absolute bottom-4 md:bottom-6 left-4 md:left-6 z-20 bg-black/60 backdrop-blur-md px-3 md:px-4 py-1.5 md:py-2 rounded-lg border border-white/10">
+                      <span className="font-display font-bold text-white text-sm md:text-base">{c.company}</span>
                     </div>
                   </div>
                 </motion.div>
