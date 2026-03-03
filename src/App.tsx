@@ -4,6 +4,7 @@ import { Mail, ShieldCheck, Zap, TrendingUp, CheckCircle2, ArrowRight, Layers, S
 import { BrowserRouter, Routes, Route, Link, useLocation, useParams } from 'react-router-dom';
 import { Analytics } from "@vercel/analytics/react";
 import { caseStudiesData } from './data';
+import { blogPosts } from './blogData';
 
 const ScrollHandler = () => {
   const location = useLocation();
@@ -662,6 +663,7 @@ const Footer = () => (
       </div>
       
       <div className="flex items-center gap-6 text-sm text-white/50">
+        <Link to="/blog" className="hover:text-white transition-colors">Blog</Link>
         <Link to="/terms" className="hover:text-white transition-colors">Terms</Link>
         <Link to="/privacy" className="hover:text-white transition-colors">Privacy</Link>
         <Link to="/contact" className="hover:text-white transition-colors">Contact</Link>
@@ -842,6 +844,115 @@ const TermsPage = () => (
   </div>
 );
 
+const BlogIndex = () => (
+  <div className="min-h-screen bg-obsidian text-white pt-32 pb-24">
+    <div className="max-w-7xl mx-auto px-6">
+      <div className="text-center mb-16">
+        <h1 className="text-4xl md:text-6xl font-display font-bold mb-6">Our Blog</h1>
+        <p className="text-white/60 text-lg max-w-2xl mx-auto">Insights and strategies for scaling your cold email infrastructure.</p>
+      </div>
+      
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {blogPosts.map((post) => (
+          <Link key={post.id} to={`/blog/${post.slug}`} className="group bg-obsidian-light border border-white/5 rounded-2xl overflow-hidden hover:border-neon-purple/50 transition-all duration-300 hover:shadow-[0_0_30px_rgba(176,38,255,0.1)] flex flex-col">
+            <div className="relative h-48 overflow-hidden">
+              <img src={post.imageUrl} alt={post.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" referrerPolicy="no-referrer" />
+            </div>
+            <div className="p-6 flex flex-col flex-1">
+              <div className="flex items-center gap-4 text-xs text-white/40 mb-4">
+                <span>{post.date}</span>
+                <span>•</span>
+                <span>{post.readTime}</span>
+              </div>
+              <h3 className="text-xl font-display font-bold mb-3 group-hover:text-neon-purple transition-colors">{post.title}</h3>
+              <p className="text-white/60 text-sm mb-6 flex-1 line-clamp-3">{post.excerpt}</p>
+              <div className="flex items-center text-neon-purple text-sm font-medium mt-auto">
+                Read Article <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+              </div>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </div>
+  </div>
+);
+
+const BlogPost = () => {
+  const { slug } = useParams();
+  const post = blogPosts.find(p => p.slug === slug);
+  
+  if (!post) {
+    return <div className="min-h-screen flex items-center justify-center text-white bg-obsidian">Blog post not found.</div>;
+  }
+
+  return (
+    <div className="min-h-screen bg-obsidian text-white pt-32 pb-24">
+      <div className="max-w-7xl mx-auto px-6">
+        <Link to="/blog" className="inline-flex items-center text-neon-purple hover:text-purple-400 font-medium transition-colors mb-12">
+          <ArrowRight className="w-4 h-4 mr-2 rotate-180" /> Back to Blog
+        </Link>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          <div className="lg:col-span-2">
+            <div className="mb-10">
+              <div className="flex items-center gap-4 text-sm text-white/40 mb-6">
+                <span>{post.date}</span>
+                <span>•</span>
+                <span>{post.readTime}</span>
+                <span>•</span>
+                <span>By {post.author}</span>
+              </div>
+              <h1 className="text-4xl md:text-5xl font-display font-bold leading-tight mb-8">{post.title}</h1>
+              <img src={post.imageUrl} alt={post.title} className="w-full h-[300px] md:h-[400px] object-cover rounded-3xl border border-white/10 mb-10" referrerPolicy="no-referrer" />
+            </div>
+            
+            <div className="prose prose-invert prose-purple max-w-none">
+              {post.content.split('\n').map((paragraph, index) => {
+                const trimmed = paragraph.trim();
+                if (trimmed.startsWith('### ')) {
+                  return <h3 key={index} className="text-2xl font-display font-bold text-white mt-10 mb-4">{trimmed.replace('### ', '')}</h3>;
+                }
+                if (trimmed.startsWith('## ')) {
+                  return <h2 key={index} className="text-3xl font-display font-bold text-white mt-14 mb-6 border-b border-white/10 pb-4">{trimmed.replace('## ', '')}</h2>;
+                }
+                if (trimmed.startsWith('- ')) {
+                  const parts = trimmed.replace('- ', '').split(/\*\*(.*?)\*\*/g);
+                  return (
+                    <li key={index} className="text-white/70 ml-6 mb-3 list-disc pl-2 marker:text-neon-purple">
+                      {parts.map((part, i) => i % 2 === 1 ? <strong key={i} className="text-white font-semibold">{part}</strong> : part)}
+                    </li>
+                  );
+                }
+                if (trimmed === '') return null;
+                
+                const parts = trimmed.split(/\*\*(.*?)\*\*/g);
+                return (
+                  <p key={index} className="text-white/70 leading-relaxed mb-6 text-lg">
+                    {parts.map((part, i) => i % 2 === 1 ? <strong key={i} className="text-white font-semibold">{part}</strong> : part)}
+                  </p>
+                );
+              })}
+            </div>
+          </div>
+          
+          <div className="lg:col-span-1 relative h-full">
+            <div className="sticky top-32 bg-neon-purple/10 border border-neon-purple/20 rounded-3xl p-8 text-center shadow-[0_0_40px_rgba(176,38,255,0.15)]">
+              <div className="w-16 h-16 bg-neon-purple/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <Zap className="w-8 h-8 text-neon-purple" />
+              </div>
+              <h3 className="text-2xl font-display font-bold mb-4 text-white">Ready to start sending automated cold emails?</h3>
+              <p className="text-white/60 mb-8">Stop worrying about infrastructure and deliverability. Let us build your sending engine today.</p>
+              <Link to="/#pricing" className="inline-flex items-center justify-center w-full py-4 rounded-xl bg-neon-purple text-white font-semibold hover:bg-purple-500 transition-all hover:scale-105 shadow-[0_0_20px_rgba(176,38,255,0.3)]">
+                Get Started <ArrowRight className="w-5 h-5 ml-2" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -853,6 +964,8 @@ export default function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/case-studies" element={<CaseStudiesHub />} />
             <Route path="/case-studies/:id" element={<CaseStudyDetail />} />
+            <Route path="/blog" element={<BlogIndex />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/privacy" element={<PrivacyPage />} />
             <Route path="/terms" element={<TermsPage />} />
